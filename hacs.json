@@ -1,0 +1,7 @@
+{
+    "name": "TencentCloud Asr",
+    "domains": [
+        "tencentcloud_asr"
+    ],
+    "render_readme": true
+}

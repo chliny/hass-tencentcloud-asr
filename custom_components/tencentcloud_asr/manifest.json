@@ -1,0 +1,20 @@
+{
+    "domain": "tencentcloud_asr",
+    "name": "TencnetCloud Asr",
+    "codeowners": [
+        "@chliny"
+    ],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://github.com/chliny/hass-tencentcloud-asr",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/chliny/hass-tencentcloud-asr/issues",
+    "requirements": [
+        "tencentcloud-sdk-python-asr",
+        "tencentcloud-sdk-python-common"
+    ],
+    "loggers": [
+        "tencentcloud_asr"
+    ],
+    "version": "0.0.1"
+}
