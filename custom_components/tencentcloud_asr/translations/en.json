@@ -1,0 +1,15 @@
+{
+    "title": "tencent cloud asr service",
+    "config": {
+        "error": {},
+        "step": {
+            "user": {
+                "data": {
+                    "secretid": "tencentcloud asr secretid",
+                    "secretkey": "tencnetcloud asr secretkey",
+                    "model": "model"
+                }
+            }
+        }
+    }
+}

@@ -1,13 +1,16 @@
 import logging
 import base64
+from functools import partial
 from collections.abc import AsyncIterable
 
 from homeassistant.components import stt
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from tencentcloud_api import TencentCloudAsrAPi
-from tencentcloud_api import ModuleSupportLanguage
+from .tencentcloud_api import TencentCloudAsrAPi
+from .tencentcloud_api import ModuleSupportLanguage
+from .tencentcloud_api import DefaultModel
+from . import SecretIdKey, SecretKeyKey, ModelKey
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,13 +25,15 @@ async def async_setup_entry(
 
 class ASRSTT(stt.SpeechToTextEntity):
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
-        secretId = config_entry.data.get("secretid", "")
-        secretKey = config_entry.data.get("secretKey", "")
+        secretId = config_entry.data.get(SecretIdKey, "")
+        secretKey = config_entry.data.get(SecretKeyKey, "")
         self.tencentCloudApi = TencentCloudAsrAPi(secretId, secretKey)
 
-        self.model: str = config_entry.data.get("model", "16k_zh")
+        self.model: str = config_entry.data.get(ModelKey, DefaultModel)
         # self._attr_name = f"TencentCloud Asr id: ({secretId})"
-        self._attr_unique_id = f"{config_entry.entry_id[:7]}-tencentcloud-asr"
+        self._attr_unique_id = f"tencentcloud_asr_stt"
+        self._attr_name = f"TencentCloud Asr STT"
+        self.hass = hass
 
     @property
     def supported_languages(self) -> list[str]:
@@ -65,7 +70,7 @@ class ASRSTT(stt.SpeechToTextEntity):
 
         data = base64.b64encode(audio).decode("utf8", "ignore").strip()
         _LOGGER.debug(f"process_audio_stream transcribe: {data}")
-        ret, result = self.tencentCloudApi.SentenceRecognition(self.model, data)
+        ret, result = await self.hass.async_add_executor_job(partial(self.tencentCloudApi.SentenceRecognition, self.model, data))
         if not ret:
             return stt.SpeechResult(result, stt.SpeechResultState.ERROR)
         if not result:

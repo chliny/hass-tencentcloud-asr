@@ -6,6 +6,11 @@ DOMAIN = "tencentcloud_asr"
 
 PLATFORMS = (Platform.STT,)
 
+# const key
+SecretIdKey = "secretid"
+SecretKeyKey = "secretkey"
+ModelKey = "model"
+
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)

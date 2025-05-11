@@ -1,5 +1,5 @@
 import logging
-from homeassistant.components.stt import AudioFormats
+from homeassistant.components.stt import AudioCodecs
 from tencentcloud.common import credential
 from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
 from tencentcloud.asr.v20190614.asr_client import AsrClient
@@ -24,23 +24,20 @@ ModuleSupportLanguage = {
     "16k_yue": ["yue"],
     "16k_zh_dialect": ["zh"],
 }
+DefaultModel = "16k_zh"
 
 
 class TencentCloudAsrAPi(object):
     def __init__(self, secretId, secretKey):
-        try:
-            cred = credential.Credential(secretId, secretKey)
-            region = ""
-            self.asrClient = AsrClient(cred, region)
-        except TencentCloudSDKException as err:
-            _LOGGER.error("tencent cloud sdk err:%s", err.message)
-            raise err
+        cred = credential.Credential(secretId, secretKey)
+        region = ""
+        self.asrClient = AsrClient(cred, region)
 
     def SentenceRecognition(self, engSerViceType, data: str) -> (tuple[bool, str | None]):
         req = SentenceRecognitionRequest()
         req.EngSerViceType = engSerViceType
         req.SourceType = SentenceRecognitionSourceTypePost
-        req.VoiceFormat = AudioFormats.WAV
+        req.VoiceFormat = AudioCodecs.PCM
         req.ProjectId = 0
         req.SubServiceType = 2
         req.UsrAudioKey = ""

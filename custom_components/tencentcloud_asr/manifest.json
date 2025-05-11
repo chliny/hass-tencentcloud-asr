@@ -1,6 +1,6 @@
 {
     "domain": "tencentcloud_asr",
-    "name": "TencnetCloud Asr",
+    "name": "TencnetCloud ASR",
     "codeowners": [
         "@chliny"
     ],

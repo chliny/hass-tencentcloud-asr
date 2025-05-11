@@ -1,0 +1,15 @@
+{
+    "title": "腾讯云 ASR 服务",
+    "config": {
+        "error": {},
+        "step": {
+            "user": {
+                "data": {
+                    "secretid": "请输入腾讯云ASR服务secretid",
+                    "secretkey": "请输入腾讯云ASR服务secretkey",
+                    "model": "模型"
+                }
+            }
+        }
+    }
+}
