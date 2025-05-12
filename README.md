@@ -24,5 +24,5 @@
 |16k_yue|粤语|
 |16k_zh_dialect|多方言|
 
-- 更新模型详细说明，请参考[腾讯云文档](https://cloud.tencent.com/document/product/1093/35646)
+- 更多模型详细说明，请参考[腾讯云文档](https://cloud.tencent.com/document/product/1093/35646)
 
