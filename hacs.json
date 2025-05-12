@@ -3,5 +3,7 @@
     "domains": [
         "tencentcloud_asr"
     ],
-    "render_readme": true
+    "render_readme": true,
+    "zip_release": true,
+    "filename": "tencentcloud_asr.zip"
 }
