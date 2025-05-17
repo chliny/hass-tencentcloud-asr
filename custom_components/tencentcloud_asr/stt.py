@@ -29,15 +29,14 @@ class ASRSTT(stt.SpeechToTextEntity):
         secretKey = config_entry.data.get(SecretKeyKey, "")
         self.tencentCloudApi = TencentCloudAsrAPi(secretId, secretKey)
 
-        self.model: str = config_entry.data.get(ModelKey, DefaultModel)
-        # self._attr_name = f"TencentCloud Asr id: ({secretId})"
         self._attr_unique_id = f"tencentcloud_asr_stt"
         self._attr_name = f"TencentCloud Asr STT"
         self.hass = hass
 
     @property
     def supported_languages(self) -> list[str]:
-        return ModuleSupportLanguage.get(self.model, ["zh"])
+        model: str = self.hass.data.get(ModelKey, DefaultModel)
+        return ModuleSupportLanguage.get(model, ["zh"])
 
     @property
     def supported_formats(self) -> list[stt.AudioFormats]:
@@ -69,8 +68,9 @@ class ASRSTT(stt.SpeechToTextEntity):
             audio += chunk
 
         data = base64.b64encode(audio).decode("utf8", "ignore").strip()
-        _LOGGER.debug(f"process_audio_stream transcribe: {data}")
-        ret, result = await self.hass.async_add_executor_job(partial(self.tencentCloudApi.SentenceRecognition, self.model, data))
+        model: str = self.hass.data.get(ModelKey, DefaultModel)
+        _LOGGER.debug(f"process_audio_stream transcribe: {data} {model}")
+        ret, result = await self.hass.async_add_executor_job(partial(self.tencentCloudApi.SentenceRecognition, model, data))
         if not ret:
             return stt.SpeechResult(result, stt.SpeechResultState.ERROR)
         if not result:
