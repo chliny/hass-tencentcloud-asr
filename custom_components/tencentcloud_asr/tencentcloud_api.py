@@ -11,10 +11,10 @@ _LOGGER = logging.getLogger(__name__)
 SentenceRecognitionSourceTypePost = 1
 SentenceRecognitionSourceTypeURL = 0
 ModuleSupportLanguage = {
-    "16k_zh": ["zh"],
-    "16k_zh-PY": ["zh", "en", "yue"],
+    "16k_zh": ["zh-cn"],
+    "16k_zh-PY": ["zh-cn", "en", "zh-hk"],
     "16k_en": ["en"],
-    "16k_yue": ["yue"],
+    "16k_yue": ["zh-hk"],
     "16k_zh_dialect": ["zh"],
 }
 DefaultModel = "16k_zh"
