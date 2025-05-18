@@ -10,13 +10,6 @@ _LOGGER = logging.getLogger(__name__)
 
 SentenceRecognitionSourceTypePost = 1
 SentenceRecognitionSourceTypeURL = 0
-Modules = {
-    "16k_zh": "中文",
-    "16k_zh-PY": "中英粤",
-    "16k_en": "英语",
-    "16k_yue": "粤语",
-    "16k_zh_dialect": "多方言",
-}
 ModuleSupportLanguage = {
     "16k_zh": ["zh"],
     "16k_zh-PY": ["zh", "en", "yue"],

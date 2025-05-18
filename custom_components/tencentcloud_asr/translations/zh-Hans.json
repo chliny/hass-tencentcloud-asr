@@ -8,7 +8,28 @@
                     "secretid": "请输入腾讯云ASR服务secretid",
                     "secretkey": "请输入腾讯云ASR服务secretkey",
                     "model": "模型"
+                },
+                "description": "此集成基于腾讯云API, 具体见[腾讯云文档](https://cloud.tencent.com/document/product/1093/35646)"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "model": "模型"
                 }
+            }
+        }
+    },
+    "selector": {
+        "model_descriptions": {
+            "options": {
+                "16k_zh": "16k_zh - 中文通用",
+                "16k_zh-PY": "16k_zh-PY - 中英粤",
+                "16k_en": "16k_en - 英语",
+                "16k_yue": "16k_yue - 粤语",
+                "16k_zh_dialect": "16k_zh_dialect - 中文多方言"
             }
         }
     }

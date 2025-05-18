@@ -3,13 +3,24 @@ import voluptuous as vol
 from typing import Any, Dict
 from homeassistant.core import callback
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult, OptionsFlow, ConfigEntry
+from homeassistant.helpers.selector import SelectSelector, SelectSelectorConfig, SelectOptionDict
 
-from .tencentcloud_api import Modules, DefaultModel
+from .tencentcloud_api import ModuleSupportLanguage, DefaultModel
 from .tencentcloud_api import TencentCloudAsrAPi
 from . import SecretIdKey, SecretKeyKey, ModelKey
 from . import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
+
+modelSelector = SelectSelector(
+    SelectSelectorConfig(
+        options=[
+            SelectOptionDict(value=model_id, label=model_id) for model_id in ModuleSupportLanguage
+        ],
+        translation_key="model_descriptions",
+    )
+)
 
 
 class ConfigFlowHandler(ConfigFlow, domain=DOMAIN):
@@ -27,17 +38,14 @@ class ConfigFlowHandler(ConfigFlow, domain=DOMAIN):
             if not errors:
                 return self.async_create_entry(title=DOMAIN, data=user_input)
 
-        return self.async_show_form(
-            step_id="user",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(SecretIdKey): str,
-                    vol.Required(SecretKeyKey): str,
-                    vol.Required(ModelKey, default=DefaultModel): vol.In(Modules.keys()),
-                },
-            ),
-            errors=errors
-        )
+        config_schema = vol.Schema(
+            {
+                vol.Required(SecretIdKey): str,
+                vol.Required(SecretKeyKey): str,
+                vol.Required(ModelKey, default=DefaultModel): modelSelector,
+            })
+
+        return self.async_show_form(step_id="user", data_schema=config_schema, errors=errors)
 
     @staticmethod
     @callback
@@ -59,6 +67,6 @@ class TencentCloudAsrOptionFlow(OptionsFlow):
             return self.async_create_entry(title=DOMAIN, data=user_input)
         model = user_input.get(ModelKey, DefaultModel)
         config_schema = vol.Schema({
-            vol.Optional(ModelKey, default=model): vol.In(Modules.keys()),
+            vol.Optional(ModelKey, default=model): modelSelector,
         })
         return self.async_show_form(step_id="user", data_schema=config_schema, errors={})

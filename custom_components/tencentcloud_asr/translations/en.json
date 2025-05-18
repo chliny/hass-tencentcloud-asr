@@ -8,7 +8,28 @@
                     "secretid": "tencentcloud asr secretid",
                     "secretkey": "tencnetcloud asr secretkey",
                     "model": "model"
+                },
+                "description": "The integration is based on [Tencent Cloud API](https://cloud.tencent.com/document/product/1093/35646)."
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "model": "model"
                 }
+            }
+        }
+    },
+    "selector": {
+        "model_descriptions": {
+            "options": {
+                "16k_zh": "16k_zh Chinese",
+                "16k_zh-PY": "16k_zh-PY - Chinese, English, and Cantonese",
+                "16k_en": "16k_en - English",
+                "16k_yue": "16k_yue - Cantonese",
+                "16k_zh_dialect": "16k_zh_dialect - Chinese dialects"
             }
         }
     }
