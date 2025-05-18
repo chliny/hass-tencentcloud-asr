@@ -2,6 +2,10 @@
 
 腾讯云语音识别服务 homeassistant stt集成
 
+[![GitHub release][releases-shield]][releases]
+[![Github downloads][downloads-shield]][releases]
+[![HACS][hacs-shield]][hacs]
+
 ## 安装
 
 - 腾讯云上开通[语音识别服务](https://cloud.tencent.com/product/asr)，获取SecretId 和 SecretKey
@@ -27,3 +31,10 @@
 - 更多模型详细说明，请参考[腾讯云文档](https://cloud.tencent.com/document/product/1093/35646)
 - 默认模型: `16k_zh`
 
+
+
+[releases-shield]: https://img.shields.io/github/v/release/chliny/hass-tencentcloud-asr?style=flat-square
+[downloads-shield]: https://img.shields.io/github/downloads/chliny/hass-tencentcloud-asr/total?style=flat-square
+[releases]: https://github.com/chliny/hass-tencentcloud-asr/releases
+[hacs-shield]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square
+[hacs]: https://github.com/hacs/integration
